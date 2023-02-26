@@ -1,0 +1,61 @@
+<html>
+<head>
+</head>
+<body>
+<div id="root"></div>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script> <!-- develop용 -->
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<!--<script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>--> <!-- production용 -->
+<!--<script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>-->
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<script type="text/babel">
+  'use strict';
+
+  // 클래스는 거의 안 씀. ErrorBoundary에 가끔 사용함
+  // 컴포넌트: 데이터와 화면을 하나로 묶어둔 덩어리
+  // 데이터: state
+  // 화면: render
+  // 데이터가 바뀌면 화면이 바뀐다.
+  class LikeButton extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {liked: false};
+    }
+    render() {
+      if (this.state.liked) {
+        return 'You liked this';
+      }
+      // return React.createElement('button', {onClick: () => this.setState({liked: true})}, 'like');
+
+      // JSX
+      return (
+        <button onClick={() => this.setState({liked: true})}>
+          Like
+        </button>
+      );
+    }
+  }
+
+  // 함수 컴포넌트
+  function LikeButton2() {
+    // this 쓸 일이 없다.
+    const [liked, setLiked] = React.useState(false);
+    // 무슨 짓을 하던, 결국 return 한 게 화면임
+    if (liked) {
+      return 'You liked this';
+    }
+    return (
+      <button onClick={() => {setLiked(true)}}>Like</button>
+    )
+  }
+
+
+</script>
+<script type="text/babel">
+  // ReactDOM.render(React.createElement(LikeButton), document.querySelector('#root'));
+  // ReactDOM.render(<LikeButton />, document.querySelector('#root')); // React 17버전 코드
+  // ReactDOM.createRoot(document.querySelector('#root')).render(<LikeButton />); // React 18버전 코드
+  ReactDOM.createRoot(document.querySelector('#root')).render(<LikeButton2 />); // React 18버전 코드
+</script>
+</body>
+</html>
